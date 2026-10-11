@@ -183,6 +183,9 @@ export default function App() {
           `La simulación falló: ${JSON.stringify(simulation)}`,
         );
       }
+		if (!simulation.result) {
+		  throw new Error("La simulación no devolvió un resultado");
+		}
 
       const valores = obtenerValoresResultado(
         simulation.result.retval,
@@ -291,9 +294,9 @@ export default function App() {
           confirmada = true;
           setEstado("Transacción confirmada en Testnet");
 
-          if (transactionResponse.result) {
+          if (transactionResponse.returnValue) {
             const valores = obtenerValoresResultado(
-              transactionResponse.result,
+              transactionResponse.returnValue,
             );
 
             setResultado(valores);
